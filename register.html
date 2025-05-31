@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register as a Customer - Kiambu Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Optional: Custom styles for focus rings if Tailwind defaults are overridden */
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* Example blue focus ring */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Join as a Customer</h2>
+        <p class="text-center text-gray-600 mb-8">Access reliable services in Kiambu County</p>
+
+        <form id="customerRegistrationForm" action="api/register_customer.php" method="POST">
+            <div class="mb-4">
+                <label for="first_name" class="block text-gray-700 text-sm font-semibold mb-2">First Name</label>
+                <input
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Jane"
+                    required
+                >
+                </div>
+
+            <div class="mb-4">
+                <label for="last_name" class="block text-gray-700 text-sm font-semibold mb-2">Last Name</label>
+                <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Muthoni"
+                    required
+                >
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="jane.muthoni@example.com"
+                    required
+                >
+            </div>
+
+            <div class="mb-4">
+                <label for="phone_number" class="block text-gray-700 text-sm font-semibold mb-2">Phone Number (e.g., +254712345678)</label>
+                <input
+                    type="tel"
+                    id="phone_number"
+                    name="phone_number"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="+2547XXXXXXXX"
+                    pattern="^\+254[0-9]{9}$"
+                    title="Phone number must be in the format +2547XXXXXXXX"
+                    required
+                >
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="********"
+                    required
+                    minlength="8"
+                >
+            </div>
+
+            <div class="mb-6">
+                <label for="confirm_password" class="block text-gray-700 text-sm font-semibold mb-2">Confirm Password</label>
+                <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="********"
+                    required
+                >
+                </div>
+
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition duration-150 ease-in-out"
+            >
+                Register
+            </button>
+
+            <p class="text-center text-gray-600 text-sm mt-4">
+                Already have an account? <a href="login.html" class="text-blue-600 hover:underline">Log in</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>

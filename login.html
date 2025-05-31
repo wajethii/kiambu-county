@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Kiambu Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+        }
+        .error-message {
+            color: #ef4444;
+            font-size: 0.75rem;
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+        .success-message {
+            color: #10b981; /* Tailwind green-500 */
+            font-size: 0.875rem; /* Tailwind text-sm */
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Welcome Back!</h2>
+        <p class="text-center text-gray-600 mb-8">Login to your Kiambu Services account.</p>
+
+        <div id="server-message" class="mb-4 text-center"></div>
+
+        <form id="loginForm" action="api/login.php" method="POST">
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="you@example.com"
+                    required
+                >
+                <p id="email_error" class="error-message"></p>
+            </div>
+
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="********"
+                    required
+                >
+                <p id="password_error" class="error-message"></p>
+            </div>
+
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition duration-150 ease-in-out"
+            >
+                Login
+            </button>
+
+            <p class="text-center text-gray-600 text-sm mt-4">
+                Don't have an account? <a href="register.html" class="text-blue-600 hover:underline">Register as Customer</a> or
+                <a href="serviceprovider.html" class="text-blue-600 hover:underline">Register as Provider</a>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const serverMessageDiv = document.getElementById('server-message');
+
+        loginForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Clear previous error messages
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            serverMessageDiv.textContent = '';
+            serverMessageDiv.className = 'mb-4 text-center'; // Reset classes
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch(this.action, {
+                    method: this.method,
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) { // HTTP status 2xx (e.g., 200 OK)
+                    serverMessageDiv.textContent = data.message;
+                    serverMessageDiv.classList.add('success-message');
+
+                    // Redirect based on user type
+                    if (data.user_type === 'Customer') {
+                        setTimeout(() => {
+                            window.location.href = 'customer_dashboard.html'; // Create this page
+                        }, 1000);
+                    } else if (data.user_type === 'Service Provider') {
+                        setTimeout(() => {
+                            window.location.href = 'provider_dashboard.html'; // Create this page
+                        }, 1000);
+                    } else if (data.user_type === 'Admin') {
+                        setTimeout(() => {
+                            window.location.href = 'admin_dashboard.html'; // Create this page
+                        }, 1000);
+                    } else {
+                        // Fallback for unknown user types
+                        console.warn('Unknown user type:', data.user_type);
+                        setTimeout(() => {
+                            window.location.href = '/default_dashboard.html'; // A general dashboard
+                        }, 1000);
+                    }
+
+                } else { // HTTP status 4xx or 5xx
+                    serverMessageDiv.textContent = data.message || 'An unexpected error occurred.';
+                    serverMessageDiv.classList.add('error-message');
+
+                    // Display specific field errors if available (though login is usually generic)
+                    if (data.errors) {
+                        for (const field in data.errors) {
+                            const errorElement = document.getElementById(field + '_error');
+                            if (errorElement) {
+                                errorElement.textContent = data.errors[field];
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Network error during login:', error);
+                serverMessageDiv.textContent = 'Network error. Please check your internet connection.';
+                serverMessageDiv.classList.add('error-message');
+            }
+        });
+    </script>
+</body>
+</html>

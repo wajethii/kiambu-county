@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Service Offering - Service Provider Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        input:focus, textarea:focus, select:focus { outline: none; box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); }
+        .error-message { color: #ef4444; font-size: 0.75rem; font-style: italic; margin-top: 0.25rem; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Add a Service Offering</h2>
+        <p class="text-center text-gray-600 mb-8">List a service you provide and set your price.</p>
+
+        <div id="server-message" class="mb-4 text-center"></div>
+
+        <form id="addServiceOfferingForm" action="api/add_service_offering.php" method="POST">
+            <div class="mb-4">
+                <label for="provider_id" class="block text-gray-700 text-sm font-semibold mb-2">Your Provider ID (Simulated)</label>
+                <input
+                    type="number"
+                    id="provider_id"
+                    name="provider_id"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-50 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter your provider ID"
+                    value="1" required
+                >
+                <p class="text-xs text-red-500 mt-1">IMPORTANT: In a real app, this is handled by server-side authentication (session/JWT), not user input.</p>
+                <p id="provider_id_error" class="error-message"></p>
+            </div>
+
+            <div class="mb-4">
+                <label for="service_id" class="block text-gray-700 text-sm font-semibold mb-2">Select Service</label>
+                <select
+                    id="service_id"
+                    name="service_id"
+                    class="shadow-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                    required
+                >
+                    <option value="">Loading services...</option>
+                </select>
+                <p id="service_id_error" class="error-message"></p>
+            </div>
+
+            <div class="mb-4">
+                <label for="price" class="block text-gray-700 text-sm font-semibold mb-2">Your Price (KES)</label>
+                <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    step="0.01"
+                    min="0"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="e.g., 1500.00"
+                    required
+                >
+                <p id="price_error" class="error-message"></p>
+            </div>
+
+            <div class="mb-6">
+                <label for="availability_status" class="block text-gray-700 text-sm font-semibold mb-2">Availability Status</label>
+                <select
+                    id="availability_status"
+                    name="availability_status"
+                    class="shadow-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                    required
+                >
+                    <option value="Available">Available</option>
+                    <option value="Busy">Busy</option>
+                    <option value="Offline">Offline</option>
+                </select>
+                <p id="availability_status_error" class="error-message"></p>
+            </div>
+
+            <button
+                type="submit"
+                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition duration-150 ease-in-out"
+            >
+                Add Offering
+            </button>
+        </form>
+    </div>
+
+    <script>
+        const addServiceOfferingForm = document.getElementById('addServiceOfferingForm');
+        const serviceIdSelect = document.getElementById('service_id');
+        const serverMessageDiv = document.getElementById('server-message');
+
+        // Function to fetch services and populate the dropdown
+        async function fetchServices() {
+            try {
+                const response = await fetch('api/get_services.php'); // Adjust path
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    serviceIdSelect.innerHTML = '<option value="">Select a service</option>'; // Reset
+                    data.services.forEach(service => {
+                        const option = document.createElement('option');
+                        option.value = service.service_id;
+                        option.textContent = service.service_name;
+                        serviceIdSelect.appendChild(option);
+                    });
+                } else {
+                    serverMessageDiv.textContent = data.message || 'Failed to load services.';
+                    serverMessageDiv.classList.add('text-red-600', 'font-bold');
+                }
+            } catch (error) {
+                console.error('Error fetching services:', error);
+                serverMessageDiv.textContent = 'Network error while loading services.';
+                serverMessageDiv.classList.add('text-red-600', 'font-bold');
+            }
+        }
+
+        // Fetch services when the page loads
+        document.addEventListener('DOMContentLoaded', fetchServices);
+
+        // Handle form submission
+        addServiceOfferingForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            serverMessageDiv.textContent = '';
+            serverMessageDiv.className = 'mb-4 text-center';
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch(this.action, {
+                    method: this.method,
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    serverMessageDiv.textContent = data.message;
+                    serverMessageDiv.classList.add('text-green-600', 'font-bold');
+                    this.reset(); // Clear form on success
+                    // Re-fetch services if needed, e.g., if adding an offering changes service availability (not in this MVP)
+                } else {
+                    serverMessageDiv.textContent = data.message || 'An unexpected error occurred.';
+                    serverMessageDiv.classList.add('text-red-600', 'font-bold');
+                    if (data.errors) {
+                        for (const field in data.errors) {
+                            const errorElement = document.getElementById(field + '_error');
+                            if (errorElement) {
+                                errorElement.textContent = data.errors[field];
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                serverMessageDiv.textContent = 'Network error. Please check your internet connection.';
+                serverMessageDiv.classList.add('text-red-600', 'font-bold');
+            }
+        });
+    </script>
+</body>
+</html>

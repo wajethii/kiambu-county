@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .error-message { color: #ef4444; font-size: 0.75rem; font-style: italic; margin-top: 0.25rem; }
+        input:focus, textarea:focus, select:focus { outline: none; box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Add New Service Category</h2>
+        <p class="text-center text-gray-600 mb-8">Define a new top-level service (e.g., "Plumbing", "Electrical").</p>
+
+        <div id="server-message" class="mb-4 text-center"></div>
+
+        <form id="addServiceForm" action="../api/add_service.php" method="POST">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Service Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="e.g., Plumbing"
+                    required
+                >
+                <p id="name_error" class="error-message"></p>
+            </div>
+
+            <div class="mb-6">
+                <label for="description" class="block text-gray-700 text-sm font-semibold mb-2">Service Description (Optional)</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="3"
+                    class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Briefly describe this service category."
+                ></textarea>
+                <p id="description_error" class="error-message"></p>
+            </div>
+
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition duration-150 ease-in-out"
+            >
+                Add Service
+            </button>
+        </form>
+    </div>
+
+    <script>
+        const addServiceForm = document.getElementById('addServiceForm');
+        const serverMessageDiv = document.getElementById('server-message');
+
+        addServiceForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            serverMessageDiv.textContent = '';
+            serverMessageDiv.className = 'mb-4 text-center';
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch(this.action, {
+                    method: this.method,
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    serverMessageDiv.textContent = data.message;
+                    serverMessageDiv.classList.add('text-green-600', 'font-bold');
+                    this.reset(); // Clear form on success
+                } else {
+                    serverMessageDiv.textContent = data.message || 'An unexpected error occurred.';
+                    serverMessageDiv.classList.add('text-red-600', 'font-bold');
+                    if (data.errors) {
+                        for (const field in data.errors) {
+                            const errorElement = document.getElementById(field + '_error');
+                            if (errorElement) {
+                                errorElement.textContent = data.errors[field];
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                serverMessageDiv.textContent = 'Network error. Please check your internet connection.';
+                serverMessageDiv.classList.add('text-red-600', 'font-bold');
+            }
+        });
+    </script>
+</body>
+</html>

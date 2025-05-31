@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Services - Kiambu Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f9fafb;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .gradient-header {
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        }
+
+        .service-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-container input {
+            padding-left: 50px;
+            border-radius: 50px;
+            height: 56px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: none;
+        }
+
+        .search-container .icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667EEA;
+            font-size: 1.25rem;
+        }
+
+        .category-filter {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 0;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .category-filter::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            flex: 0 0 auto;
+            padding: 8px 20px;
+            border-radius: 30px;
+            background: #f1f5f9;
+            margin-right: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            color: white;
+        }
+
+        .service-image {
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-image {
+            transform: scale(1.05);
+        }
+
+        .price-tag {
+            background: linear-gradient(135deg, #10B981 0%, #3B82F6 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .provider-badge {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            background: #f8fafc;
+            border-radius: 30px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .provider-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-gray-800">
+                <span class="text-blue-600">Kiambu</span> Services
+            </a>
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 hidden md:inline-block">
+                    <i class="fas fa-home mr-1"></i> Home
+                </a>
+                <a href="serviceprovider.html" class="bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition duration-300">
+                    Join as Provider
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="gradient-header text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Discover Local Services</h1>
+            <p class="text-xl max-w-2xl mx-auto mb-10">
+                Browse hundreds of trusted local professionals ready to help with your project
+            </p>
+            
+            <div class="search-container">
+                <div class="icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <input type="text" class="w-full px-6 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="What service do you need?">
+            </div>
+            
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Plumbing</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Electrical</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Carpentry</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Gardening</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Cleaning</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Filters -->
+    <section class="py-6 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Filter by Category:</h3>
+            <div class="category-filter">
+                <div class="category-btn active">All Services</div>
+                <div class="category-btn">Home Repair</div>
+                <div class="category-btn">Electrical</div>
+                <div class="category-btn">Plumbing</div>
+                <div class="category-btn">Carpentry</div>
+                <div class="category-btn">Gardening</div>
+                <div class="category-btn">Cleaning</div>
+                <div class="category-btn">Moving & Transport</div>
+                <div class="category-btn">Farming</div>
+                <div class="category-btn">Automotive</div>
+                <div class="category-btn">IT Services</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">All Services (24)</h2>
+                <div class="flex items-center">
+                    <span class="text-gray-600 mr-3">Sort by:</span>
+                    <select class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Most Popular</option>
+                        <option>Highest Rated</option>
+                        <option>Newest First</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="service-card bg-white fade-in">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1687184464107-3804b88644c9?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                             alt="Plumbing service" class="service-image w-full">
+                        <div class="absolute top-4 right-4 price-tag">Ksh 1,500+</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <h3 class="text-xl font-bold text-gray-800 mr-3">Plumbing Repairs</h3>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">4.9 ★</span>
+                                </div>
+                                <p class="text-gray-600">Fix leaks, install fixtures, and solve all plumbing issues</p>
+                            </div>
+                            <div class="service-icon bg-blue-100 text-blue-600">
+                                <i class="fas fa-faucet"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <span class="category-tag bg-blue-100 text-blue-800">Plumbing</span>
+                            <span class="category-tag bg-green-100 text-green-800">Home Repair</span>
+                        </div>
+                        
+                        <div class="provider-badge">
+                            <img src="https://images.unsplash.com/photo-1546525848-3ce03ca516f6?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Provider" class="provider-avatar">
+                            <span>James Kariuki</span>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-between items-center">
+                            <button class="text-blue-600 font-semibold hover:text-blue-800">
+                                View Details
+                            </button>
+                            <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="service-card bg-white fade-in">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                             alt="Electrical service" class="service-image w-full">
+                        <div class="absolute top-4 right-4 price-tag">Ksh 2,000+</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <h3 class="text-xl font-bold text-gray-800 mr-3">Electrical Wiring</h3>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">4.8 ★</span>
+                                </div>
+                                <p class="text-gray-600">Safe electrical installations, repairs, and maintenance</p>
+                            </div>
+                            <div class="service-icon bg-yellow-100 text-yellow-600">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <span class="category-tag bg-yellow-100 text-yellow-800">Electrical</span>
+                            <span class="category-tag bg-blue-100 text-blue-800">Home Repair</span>
+                        </div>
+                        
+                        <div class="provider-badge">
+                            <img src="https://images.unsplash.com/photo-1611432579402-7037e3e2c1e4?q=80&w=1665&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Provider" class="provider-avatar">
+                            <span>Susan Wambui</span>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-between items-center">
+                            <button class="text-blue-600 font-semibold hover:text-blue-800">
+                                View Details
+                            </button>
+                            <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="service-card bg-white fade-in">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1698936061086-2bf99c7b9fc5?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                             alt="Carpentry service" class="service-image w-full">
+                        <div class="absolute top-4 right-4 price-tag">Ksh 3,500+</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <h3 class="text-xl font-bold text-gray-800 mr-3">Custom Furniture</h3>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">5.0 ★</span>
+                                </div>
+                                <p class="text-gray-600">Handcrafted furniture and custom woodwork solutions</p>
+                            </div>
+                            <div class="service-icon bg-green-100 text-green-600">
+                                <i class="fas fa-hammer"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <span class="category-tag bg-green-100 text-green-800">Carpentry</span>
+                            <span class="category-tag bg-purple-100 text-purple-800">Furniture</span>
+                        </div>
+                        
+                        <div class="provider-badge">
+                            <img src="https://images.unsplash.com/photo-1614890085618-0e1054da74f8?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Provider" class="provider-avatar">
+                            <span>Peter Kamau</span>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-between items-center">
+                            <button class="text-blue-600 font-semibold hover:text-blue-800">
+                                View Details
+                            </button>
+                            <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="service-card bg-white fade-in">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                             alt="Gardening service" class="service-image w-full">
+                        <div class="absolute top-4 right-4 price-tag">Ksh 2,500+</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <h3 class="text-xl font-bold text-gray-800 mr-3">Garden Maintenance</h3>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">4.7 ★</span>
+                                </div>
+                                <p class="text-gray-600">Lawn care, pruning, planting, and landscape design</p>
+                            </div>
+                            <div class="service-icon bg-lime-100 text-lime-600">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <span class="category-tag bg-lime-100 text-lime-800">Gardening</span>
+                            <span class="category-tag bg-teal-100 text-teal-800">Landscaping</span>
+                        </div>
+                        
+                        <div class="provider-badge">
+                            <img src="https://plus.unsplash.com/premium_photo-1664298496534-3256fcee214b?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Provider" class="provider-avatar">
+                            <span>Grace Atieno</span>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-between items-center">
+                            <button class="text-blue-600 font-semibold hover:text-blue-800">
+                                View Details
+                            </button>
+                            <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="service-card bg-white fade-in">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1581578949510-fa7315c4c350?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                             alt="Cleaning service" class="service-image w-full">
+                        <div class="absolute top-4 right-4 price-tag">Ksh 1,800+</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <h3 class="text-xl font-bold text-gray-800 mr-3">Home Cleaning</h3>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">4.9 ★</span>
+                                </div>
+                                <p class="text-gray-600">Thorough home cleaning with eco-friendly products</p>
+                            </div>
+                            <div class="service-icon bg-pink-100 text-pink-600">
+                                <i class="fas fa-broom"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <span class="category-tag bg-pink-100 text-pink-800">Cleaning</span>
+                            <span class="category-tag bg-blue-100 text-blue-800">Home Services</span>
+                        </div>
+                        
+                        <div class="provider-badge">
+                            <img src="https://images.unsplash.com/photo-1507152832244-10d45c7eda57?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Provider" class="provider-avatar">
+                            <span>Jane Muthoni</span>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-between items-center">
+                            <button class="text-blue-600 font-semibold hover:text-blue-800">
+                                View Details
+                            </button>
+                            <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="service-card bg-white fade-in">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1594691592772-4427be1ea26c?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                             alt="Farming service" class="service-image w-full">
+                        <div class="absolute top-4 right-4 price-tag">Ksh 4,500+</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <h3 class="text-xl font-bold text-gray-800 mr-3">Farm Equipment Repair</h3>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">4.6 ★</span>
+                                </div>
+                                <p class="text-gray-600">Expert repair and maintenance for farm machinery</p>
+                            </div>
+                            <div class="service-icon bg-gray-100 text-gray-600">
+                                <i class="fas fa-tractor"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <span class="category-tag bg-gray-100 text-gray-800">Farming</span>
+                            <span class="category-tag bg-orange-100 text-orange-800">Equipment</span>
+                        </div>
+                        
+                        <div class="provider-badge">
+                            <img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Provider" class="provider-avatar">
+                            <span>Samuel Njoroge</span>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-between items-center">
+                            <button class="text-blue-600 font-semibold hover:text-blue-800">
+                                View Details
+                            </button>
+                            <button class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-12 flex justify-center">
+                <nav class="flex items-center space-x-1">
+                    <a href="#" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium">1</a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100">2</a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100">3</a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100">Next</a>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Get Started?</h2>
+            <p class="text-xl max-w-2xl mx-auto mb-10">
+                Join thousands of satisfied customers who have found reliable services through Kiambu Services
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="px-8 py-4 bg-white text-blue-600 rounded-full text-lg font-bold shadow-lg hover:shadow-xl transition duration-300">
+                    Find Services Now
+                </button>
+                <button class="px-8 py-4 border-2 border-white text-white rounded-full text-lg font-bold hover:bg-white hover:bg-opacity-10 transition duration-300">
+                    Become a Provider
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-6">Kiambu Services</h3>
+                    <p class="mb-6">Connecting skilled professionals with customers in Kiambu County.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-white">Plumbing</a></li>
+                        <li><a href="#" class="hover:text-white">Electrical</a></li>
+                        <li><a href="#" class="hover:text-white">Carpentry</a></li>
+                        <li><a href="#" class="hover:text-white">Gardening</a></li>
+                        <li><a href="#" class="hover:text-white">Cleaning</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-white">About Us</a></li>
+                        <li><a href="#" class="hover:text-white">How It Works</a></li>
+                        <li><a href="#" class="hover:text-white">Careers</a></li>
+                        <li><a href="#" class="hover:text-white">Testimonials</a></li>
+                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-6">Contact</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>Kiambu Town, Kiambu County</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3"></i>
+                            <span>+254 712 345 678</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3"></i>
+                            <span>info@kiambuservices.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p>&copy; 2023 Kiambu Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple fade-in animation for service cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.fade-in');
+            
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Category filter functionality
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Simple search functionality
+            const searchInput = document.querySelector('input[type="text"]');
+            searchInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    alert(`Searching for: "${this.value}"`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

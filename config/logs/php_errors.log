@@ -1,0 +1,6 @@
+[23-May-2025 08:27:01 Europe/Berlin] PHP Warning:  Undefined variable $stmt in C:\xampp\htdocs\kiambu county\api\add_service.php on line 64
+[23-May-2025 08:27:01 Europe/Berlin] PHP Warning:  Attempt to read property "queryString" on null in C:\xampp\htdocs\kiambu county\api\add_service.php on line 64
+[23-May-2025 08:27:01 Europe/Berlin] Failed to add service: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'name' in 'where clause' - SQL: 
+[23-May-2025 08:27:15 Europe/Berlin] PHP Warning:  Undefined variable $stmt in C:\xampp\htdocs\kiambu county\api\add_service.php on line 64
+[23-May-2025 08:27:15 Europe/Berlin] PHP Warning:  Attempt to read property "queryString" on null in C:\xampp\htdocs\kiambu county\api\add_service.php on line 64
+[23-May-2025 08:27:15 Europe/Berlin] Failed to add service: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'name' in 'where clause' - SQL: 

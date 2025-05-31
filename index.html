@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiambu Services - Your Local Tech-Powered Skill Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    height: {
+                        screen: ['100vh', '100dvh']
+                    },
+                    minHeight: {
+                        screen: ['100vh', '100dvh']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .gradient-hero {
+            background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+        }
+
+        .gradient-features {
+            background: linear-gradient(45deg, #A855F7 0%, #EC4899 100%);
+        }
+
+        .gradient-cta {
+            background: linear-gradient(135deg, #10B981 0%, #3B82F6 100%);
+        }
+
+        .gradient-footer {
+            background: linear-gradient(90deg, #1A202C 0%, #2D3748 100%);
+        }
+
+        .gradient-card-border {
+            border: 2px solid transparent;
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            background-image: linear-gradient(to right, white, white), linear-gradient(135deg, #A855F7, #EC4899);
+        }
+
+        .gradient-card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-gradient-hover {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn-gradient-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+            transition: all 0.4s ease-in-out;
+            z-index: -1;
+        }
+
+        .btn-gradient-hover:hover::before {
+            left: 100%;
+        }
+
+        .card-hover-effect {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-min-height {
+            min-height: 100vh;
+        }
+        
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+            transform: translateX(-20px);
+            opacity: 0;
+        }
+        
+        @keyframes slideInLeft {
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out forwards;
+            transform: translateX(20px);
+            opacity: 0;
+        }
+        
+        @keyframes slideInRight {
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .zoom-in {
+            animation: zoomIn 0.8s ease-out forwards;
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        
+        @keyframes zoomIn {
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        
+        .mobile-menu-transition {
+            transition: max-height 0.5s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .mobile-menu-open {
+            max-height: 1000px;
+        }
+        
+        .backdrop-blur {
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .perspective-card {
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .perspective-card:hover {
+            transform: perspective(1000px) rotateY(-5deg);
+        }
+        
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .section-min-height {
+                min-height: auto;
+                height: auto;
+                padding: 4rem 1rem;
+            }
+            
+            .mobile-flex-col {
+                flex-direction: column;
+            }
+            
+            .mobile-padding {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-gray-900 bg-gray-50 antialiased">
+
+    <nav class="sticky-nav p-4 shadow-sm">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">Kiambu <span
+                    class="text-blue-600">Services</span></a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#how-it-works"
+                    class="text-gray-600 hover:text-blue-600 font-semibold transition duration-300">How it Works</a>
+                <a href="#services"
+                    class="text-gray-600 hover:text-blue-600 font-semibold transition duration-300">Services</a>
+                <a href="#testimonials"
+                    class="text-gray-600 hover:text-blue-600 font-semibold transition duration-300">Testimonials</a>
+                <a href="#features"
+                    class="text-gray-600 hover:text-blue-600 font-semibold transition duration-300">Features</a>
+                <a href="#join-us" class="text-gray-600 hover:text-blue-600 font-semibold transition duration-300">Join
+                    Us</a>
+                <a href="login.html"
+                    class="px-5 py-2 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition duration-300 card-hover-effect">Login</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 focus:outline-none focus:text-blue-600">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="mobile-menu-transition md:hidden mt-2">
+            <div class="py-4 space-y-4">
+                <a href="#how-it-works"
+                    class="block px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition duration-300">How it Works</a>
+                <a href="#services"
+                    class="block px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition duration-300">Services</a>
+                <a href="#testimonials"
+                    class="block px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition duration-300">Testimonials</a>
+                <a href="#features"
+                    class="block px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition duration-300">Features</a>
+                <a href="#join-us"
+                    class="block px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition duration-300">Join Us</a>
+                <a href="login.html"
+                    class="block px-4 py-3 bg-blue-600 text-white rounded-lg font-bold text-center hover:bg-blue-700 transition duration-300">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <header
+        class="gradient-hero text-white min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 w-full h-full opacity-20 z-0">
+            <img src="https://images.unsplash.com/photo-1549241513-5813733b2075?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Abstract tech background" class="object-cover w-full h-full">
+            <div class="absolute inset-0 gradient-hero opacity-80 mix-blend-multiply"></div>
+        </div>
+        <div class="container mx-auto px-4 text-center relative z-10 max-w-4xl">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 slide-in-left">
+                Kiambu's Skills, <br class="md:hidden"> Powered by You.
+            </h1>
+            <p class="text-xl md:text-2xl opacity-90 mb-10 max-w-2xl mx-auto fade-in delay-100">
+                Connecting top-notch blue-collar skills with folks who need 'em, right here in Kiambu County. Fast,
+                fair, reliable.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in delay-200">
+                <a href="register.html"
+                    class="px-8 py-3 sm:px-10 sm:py-4 bg-white text-blue-700 rounded-full text-lg font-bold shadow-lg hover:shadow-xl btn-gradient-hover">
+                    <span class="relative z-10">Find a Pro, Pronto!</span>
+                </a>
+                <a href="serviceprovider.html"
+                    class="px-8 py-3 sm:px-10 sm:py-4 border-2 border-white text-white rounded-full text-lg font-bold shadow-lg hover:shadow-xl btn-gradient-hover">
+                    <span class="relative z-10">Offer Your Skills!</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="how-it-works" class="section-min-height bg-gray-50 flex items-center justify-center">
+        <div class="section-content">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center slide-in-right">How We Make It Click</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md perspective-card fade-in">
+                    <div class="text-blue-500 mb-6 text-5xl text-center">💡</div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">You Name It</h3>
+                    <p class="text-gray-600 text-center">Describe the service you need – from plumbing to carpentry, farming to
+                        electrics. Get specific!</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md perspective-card fade-in delay-100">
+                    <div class="text-purple-500 mb-6 text-5xl text-center">🤝</div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">We Connect You</h3>
+                    <p class="text-gray-600 text-center">Our smart platform matches you with vetted local pros in Kiambu ready to
+                        tackle the job.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md perspective-card fade-in delay-200">
+                    <div class="text-green-500 mb-6 text-5xl text-center">🚀</div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Get It Done!</h3>
+                    <p class="text-gray-600 text-center">Chat, quote, hire, and get things fixed or built. Simple, secure, local.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section-min-height bg-white flex items-center justify-center">
+        <div class="section-content">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center slide-in-left">Popular Services in Kiambu</h2>
+            <p class="text-lg text-gray-600 text-center mb-10 max-w-3xl mx-auto fade-in">
+                Explore a wide range of services offered by skilled professionals right in your neighborhood. From quick
+                fixes to major projects, we've got you covered.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div
+                    class="lg:col-span-2 md:row-span-2 bg-white rounded-xl shadow-lg overflow-hidden perspective-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1582297138378-0d19e598926b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Plumbing services" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <i class="fas fa-faucet text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Plumbing & Water Solutions</h3>
+                        <p class="text-gray-600 mb-4">Leaky faucets, pipe repairs, water heater installations – reliable
+                            plumbers are just a tap away.</p>
+                        <a href="#"
+                            class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition duration-300 btn-gradient-hover">
+                            Find a Plumber
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center text-center perspective-card fade-in delay-100">
+                    <i class="fas fa-bolt text-5xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Electrical Work</h3>
+                    <p class="text-gray-600 text-sm">Wiring, repairs, fixture installation. Safe and certified.</p>
+                </div>
+
+                <div
+                    class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center text-center perspective-card fade-in delay-200">
+                    <i class="fas fa-tools text-5xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Carpentry & Joinery</h3>
+                    <p class="text-gray-600 text-sm">Custom furniture, repairs, fittings. Quality craftsmanship.</p>
+                </div>
+
+                <div
+                    class="md:col-span-1 lg:col-span-2 bg-white rounded-xl shadow-lg p-8 flex flex-col md:flex-row items-center gap-6 perspective-card fade-in delay-300">
+                    <img src="https://images.unsplash.com/photo-1543876793-1070e1b12b6b?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Home Repair" class="w-24 h-24 object-cover rounded-full shadow-md">
+                    <div>
+                        <i class="fas fa-wrench text-4xl text-purple-600 mb-2"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">General Home Repairs</h3>
+                        <p class="text-gray-600">From fixing leaky roofs to painting, our handymen have you covered.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center text-center perspective-card fade-in delay-400">
+                    <i class="fas fa-leaf text-5xl text-lime-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Gardening & Landscaping</h3>
+                    <p class="text-gray-600 text-sm">Keep your outdoor spaces pristine with our green thumb experts.</p>
+                </div>
+
+                <div
+                    class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center text-center perspective-card fade-in delay-500">
+                    <i class="fas fa-truck text-5xl text-orange-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Moving & Transport</h3>
+                    <p class="text-gray-600 text-sm">Reliable transport for goods and furniture, big or small.</p>
+                </div>
+
+                <div
+                    class="lg:col-span-2 md:row-span-1 bg-white rounded-xl shadow-lg overflow-hidden perspective-card fade-in">
+                    <div class="p-6">
+                        <i class="fas fa-tractor text-4xl text-gray-700 mb-4"></i>
+                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Agricultural Services</h3>
+                        <p class="text-gray-600 mb-4">Farm machinery repair, irrigation setup, planting assistance.
+                            Support for local farmers.</p>
+                        <a href="#"
+                            class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition duration-300 btn-gradient-hover">
+                            Explore Farming Services
+                        </a>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Agricultural services" class="w-full h-48 object-cover">
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="all_services.html"
+                    class="inline-block px-8 py-4 bg-purple-600 text-white rounded-full text-lg md:text-xl font-bold hover:bg-purple-700 transition duration-300 btn-gradient-hover">
+                    <span class="relative z-10">Browse All Categories</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section-min-height gradient-features text-white flex items-center justify-center">
+        <div class="section-content">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center slide-in-right">What Our Community Says</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white bg-opacity-10 p-8 rounded-xl shadow-lg backdrop-blur-sm perspective-card fade-in">
+                    <p class="text-lg italic mb-6">"Kiambu Services saved my day! My fridge broke down on a Sunday, and
+                        I found a reliable technician within minutes. Fast and fair pricing!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer Photo"
+                            class="w-16 h-16 rounded-full mr-4 border-2 border-white">
+                        <div>
+                            <p class="font-semibold text-lg">John Mbugua</p>
+                            <p class="text-sm opacity-80">Satisfied Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white bg-opacity-10 p-8 rounded-xl shadow-lg backdrop-blur-sm perspective-card fade-in delay-100">
+                    <p class="text-lg italic mb-6">"As a plumber, this platform has transformed my business. I get
+                        consistent leads, and the direct communication with clients is excellent. Highly recommend!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Provider Photo"
+                            class="w-16 h-16 rounded-full mr-4 border-2 border-white">
+                        <div>
+                            <p class="font-semibold text-lg">Mary Wanjiku</p>
+                            <p class="text-sm opacity-80">Service Provider</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section-min-height bg-gray-50 flex items-center justify-center">
+        <div class="section-content">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center slide-in-left">Why Kiambu Services Rocks</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-start text-left perspective-card fade-in">
+                    <span class="text-3xl mr-4 text-blue-500">📍</span>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Hyper-Local Focus</h3>
+                        <p class="text-gray-600">Only the best pros in Kiambu County. No more guessing games, just
+                            trusted local talent.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-start text-left perspective-card fade-in delay-100">
+                    <span class="text-3xl mr-4 text-purple-500">✅</span>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Vetted & Verified</h3>
+                        <p class="text-gray-600">Every service provider is checked for quality, reliability, and good
+                            vibes. Your peace of mind, guaranteed.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-start text-left perspective-card fade-in delay-200">
+                    <span class="text-3xl mr-4 text-green-500">⏱️</span>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Seriously Fast</h3>
+                        <p class="text-gray-600">Post a job in minutes, get responses almost instantly. Time is money,
+                            let's save both.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-start text-left perspective-card fade-in delay-300">
+                    <span class="text-3xl mr-4 text-pink-500">💰</span>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Fair & Transparent</h3>
+                        <p class="text-gray-600">Clear pricing, no hidden fees. You get quotes upfront, so you know
+                            exactly what you're paying for.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-start text-left perspective-card fade-in delay-400">
+                    <span class="text-3xl mr-4 text-yellow-500">💬</span>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Direct Communication</h3>
+                        <p class="text-gray-600">Connect directly with pros through our platform. No middlemen, just
+                            clear conversations.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-start text-left perspective-card fade-in delay-500">
+                    <span class="text-3xl mr-4 text-teal-500">🌟</span>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Rating & Reviews</h3>
+                        <p class="text-gray-600">See what others say! Hire with confidence thanks to community-driven
+                            feedback.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="join-us" class="section-min-height gradient-cta text-white flex items-center justify-center">
+        <div class="section-content text-center">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 slide-in-right">Ready to Level Up Your Services or Get Things Done?</h2>
+            <p class="text-xl md:text-2xl opacity-90 mb-10 max-w-3xl mx-auto fade-in">
+                Whether you're looking for a skilled hand or ready to offer yours, Kiambu Services is your go-to
+                platform. Join our growing community today!
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in">
+                <a href="/register.html"
+                    class="px-8 py-3 sm:px-10 sm:py-4 bg-white text-green-700 rounded-full text-lg font-bold shadow-lg hover:shadow-xl btn-gradient-hover">
+                    <span class="relative z-10">I Need a Service!</span>
+                </a>
+                <a href="/serviceprovider.html"
+                    class="px-8 py-3 sm:px-10 sm:py-4 border-2 border-white text-white rounded-full text-lg font-bold shadow-lg hover:shadow-xl btn-gradient-hover">
+                    <span class="relative z-10">I Offer Services!</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="gradient-footer text-gray-300 py-12 px-4">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Kiambu Services</h3>
+                    <p class="text-gray-400">Your local tech hub for blue-collar services in Kiambu County. Connecting
+                        talent with demand, efficiently.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#how-it-works" class="hover:text-white transition duration-300">How it Works</a>
+                        </li>
+                        <li><a href="#services" class="hover:text-white transition duration-300">Services</a></li>
+                        <li><a href="#testimonials" class="hover:text-white transition duration-300">Testimonials</a>
+                        </li>
+                        <li><a href="/login.html" class="hover:text-white transition duration-300">Login</a></li>
+                        <li><a href="/register.html" class="hover:text-white transition duration-300">Register
+                                as Customer</a></li>
+                        <li><a href="/serviceprovider.html" class="hover:text-white transition duration-300">Register
+                                as Provider</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Connect With Us</h3>
+                    <p class="text-gray-400">Kiambu County, Kenya</p>
+                    <p class="text-gray-400">Email: info@kiambuservices.com</p>
+                    <p class="text-gray-400">Phone: +254 7XX XXX XXX</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                                class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                                class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                                class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                                class="fab fa-linkedin-in text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 mt-8 text-center">
+                <p>&copy; <span id="current-year"></span> Kiambu Services. All rights reserved. Made with ❤️ in Kiambu.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('mobile-menu-open');
+        });
+        
+        // Smooth scrolling with offset for fixed header
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                mobileMenu.classList.remove('mobile-menu-open');
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                const headerHeight = document.querySelector('nav').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    entry.target.classList.add('slide-in-left');
+                    entry.target.classList.add('slide-in-right');
+                    entry.target.classList.add('zoom-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all elements with animation classes
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .zoom-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

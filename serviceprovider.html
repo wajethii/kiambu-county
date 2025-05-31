@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Service Provider - Kiambu Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+            --secondary-gradient: linear-gradient(45deg, #A855F7 0%, #EC4899 100%);
+            --accent-gradient: linear-gradient(135deg, #10B981 0%, #3B82F6 100%);
+            --dark-gradient: linear-gradient(90deg, #1A202C 0%, #2D3748 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f7ff, #f9f5ff);
+            min-height: 100vh;
+            color: #2d3748;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        
+        .gradient-header {
+            background: var(--primary-gradient);
+        }
+        
+        .gradient-card {
+            background: var(--accent-gradient);
+        }
+        
+        .gradient-modal {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 245, 255, 0.95));
+            backdrop-filter: blur(20px);
+        }
+        
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .benefits-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            background: var(--accent-gradient);
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(237, 242, 247, 0.8);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4a5568;
+        }
+        
+        .input-field {
+            padding-left: 45px;
+            height: 50px;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            background: #f8fafc;
+            transition: all 0.3s ease;
+            color: #2d3748;
+            font-weight: 500;
+            width: 100%;
+        }
+        
+        .input-field:focus {
+            border-color: #667EEA;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+            background: #fff;
+        }
+        
+        .btn-primary {
+            background: var(--accent-gradient);
+            height: 50px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 24px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #667EEA, #764BA2);
+            box-shadow: 0 7px 14px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(102, 126, 234, 0.4);
+        }
+        
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: block;
+            font-weight: 500;
+        }
+        
+        .success-check {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .floating-image {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .category-tag {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            background: #ebf8ff;
+            color: #2b6cb0;
+            font-size: 0.85rem;
+            margin: 0 5px 8px 0;
+            font-weight: 500;
+        }
+        
+        .review-card {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .nav-link {
+            color: #4a5568;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .nav-link:hover {
+            color: #667EEA;
+        }
+        
+        .text-highlight {
+            color: #667EEA;
+        }
+        
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            text-decoration: none;
+            color: #2d3748;
+        }
+        
+        .logo span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .header-container {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+            overflow: hidden;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            background: var(--accent-gradient);
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-cols-1 {
+                grid-template-columns: 1fr;
+            }
+            
+            .flex-col-mobile {
+                flex-direction: column;
+            }
+            
+            .text-center-mobile {
+                text-align: center;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-50">
+        <div class="header-container py-4">
+            <div class="container mx-auto px-4 flex justify-between items-center">
+                <a href="index.html" class="logo">Kiambu<span>Services</span></a>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="allservices.html" class="nav-link">Services</a>
+                    <a href="#" class="nav-link">How It Works</a>
+                    <a href="#" class="nav-link">Providers</a>
+                </nav>
+                <div>
+                    <a href="login.html" class="bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition duration-300">
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">Join Our Community of Service Providers</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Offer your skills to customers in Kiambu County and grow your business</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
+                <!-- Benefits Section (Why Join Us) -->
+                <div class="benefits-section p-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Why Join Kiambu Services?</h2>
+                    
+                    <div class="mb-8">
+                        <div class="floating-image mb-6">
+                            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                                 alt="Service Provider" class="w-full h-64 object-cover rounded-xl shadow-lg">
+                        </div>
+                        <p class="text-gray-700 mb-8">
+                            Join our platform to connect with customers actively seeking services in Kiambu County. 
+                            Grow your business with our trusted platform designed for local professionals.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="benefit-card p-6">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-users text-blue-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-gray-800 mb-2">Access to Local Customers</h3>
+                                    <p class="text-gray-600">Connect with customers actively seeking services in your area. No more waiting for clients to find you.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-card p-6">
+                            <div class="flex items-start">
+                                <div class="bg-green-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-shield-alt text-green-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-gray-800 mb-2">Verified & Trusted</h3>
+                                    <p class="text-gray-600">Build trust with our verification system and customer reviews. Stand out from unverified competitors.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-card p-6">
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-wallet text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-gray-800 mb-2">Secure Payments</h3>
+                                    <p class="text-gray-600">Get paid securely and on time for your services. No more chasing payments or dealing with cash.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h3 class="font-bold text-xl text-gray-800 mb-4">Popular Service Categories</h3>
+                        <div class="flex flex-wrap">
+                            <span class="category-tag">Plumbing</span>
+                            <span class="category-tag">Electrical</span>
+                            <span class="category-tag">Carpentry</span>
+                            <span class="category-tag">Gardening</span>
+                            <span class="category-tag">Cleaning</span>
+                            <span class="category-tag">Painting</span>
+                            <span class="category-tag">Farming</span>
+                            <span class="category-tag">Mechanics</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 gradient-card text-white p-6 rounded-xl">
+                        <h3 class="font-bold text-xl mb-3">What Our Providers Say</h3>
+                        <div class="flex items-start">
+                            <i class="fas fa-quote-left text-white text-2xl opacity-70 mr-4"></i>
+                            <p class="italic">"Since joining Kiambu Services, my plumbing business has doubled. The platform brings me customers I never would have reached on my own."</p>
+                        </div>
+                        <div class="flex items-center mt-4">
+                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Provider" class="w-10 h-10 rounded-full border-2 border-white mr-3">
+                            <div>
+                                <p class="font-bold">James Kariuki</p>
+                                <p class="text-sm opacity-80">Plumbing Services, Thika</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Registration Form -->
+                <div class="form-container p-8">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Create Provider Account</h2>
+                        <p class="text-gray-600">Fill in your details to start offering services</p>
+                        
+                        <div class="mt-6 mb-4">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm font-medium text-blue-600">Step <span id="current-step">1</span> of 3</span>
+                                <span class="text-sm font-medium text-gray-600">Registration Progress</span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-3">
+                                <div id="progress-bar" class="progress-bar rounded-full" style="width: 33%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 1: Personal Information -->
+                    <div id="step-1" class="step active">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="input-group">
+                                <label for="first_name" class="block text-gray-700 font-semibold mb-2">First Name</label>
+                                <div class="relative">
+                                    <i class="input-icon fas fa-user"></i>
+                                    <input type="text" id="first_name" name="first_name" 
+                                           class="input-field" placeholder="Peter" required>
+                                </div>
+                                <p id="first_name_error" class="error-message"></p>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="last_name" class="block text-gray-700 font-semibold mb-2">Last Name</label>
+                                <div class="relative">
+                                    <i class="input-icon fas fa-user"></i>
+                                    <input type="text" id="last_name" name="last_name" 
+                                           class="input-field" placeholder="Kamau" required>
+                                </div>
+                                <p id="last_name_error" class="error-message"></p>
+                            </div>
+                            
+                            <div class="input-group md:col-span-2">
+                                <label for="email" class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                                <div class="relative">
+                                    <i class="input-icon fas fa-envelope"></i>
+                                    <input type="email" id="email" name="email" 
+                                           class="input-field" placeholder="peter.kamau@example.com" required>
+                                </div>
+                                <p id="email_error" class="error-message"></p>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="phone_number" class="block text-gray-700 font-semibold mb-2">Phone Number</label>
+                                <div class="relative">
+                                    <i class="input-icon fas fa-phone"></i>
+                                    <input type="tel" id="phone_number" name="phone_number" 
+                                           class="input-field" placeholder="+2547XXXXXXXX" 
+                                           pattern="^\+254[0-9]{9}$" required>
+                                </div>
+                                <p id="phone_number_error" class="error-message"></p>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="location_data" class="block text-gray-700 font-semibold mb-2">Service Area</label>
+                                <div class="relative">
+                                    <i class="input-icon fas fa-map-marker-alt"></i>
+                                    <input type="text" id="location_data" name="location_data" 
+                                           class="input-field" placeholder="Thika" required>
+                                </div>
+                                <p id="location_data_error" class="error-message"></p>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
+                                <div class="relative">
+                                    <i class="input-icon fas fa-lock"></i>
+                                    <input type="password" id="password" name="password" 
+                                           class="input-field" placeholder="••••••••" minlength="8" required>
+                                </div>
+                                <p id="password_error" class="error-message"></p>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="confirm_password" class="block text-gray-700 font-semibold mb-2">Confirm Password</label>
+                                <div class="relative">
+                                    <i class="input-icon fas fa-lock"></i>
+                                    <input type="password" id="confirm_password" name="confirm_password" 
+                                           class="input-field" placeholder="••••••••" required>
+                                </div>
+                                <p id="confirm_password_error" class="error-message"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end mt-8">
+                            <button type="button" onclick="nextStep(2)" class="btn-primary">
+                                Next Step <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Professional Information -->
+                    <div id="step-2" class="step">
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="input-group">
+                                <label for="business_name" class="block text-gray-700 font-semibold mb-2">Business Name (Optional)</label>
+                                <div class="relative">
+                                    <i class="input-icon fas fa-briefcase"></i>
+                                    <input type="text" id="business_name" name="business_name" 
+                                           class="input-field" placeholder="Kamau Plumbing Services">
+                                </div>
+                                <p id="business_name_error" class="error-message"></p>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-gray-700 font-semibold mb-2">Services You Offer</label>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                    <label class="flex items-center bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-blue-50">
+                                        <input type="checkbox" name="services[]" value="plumbing" class="mr-3 h-5 w-5 text-blue-600">
+                                        <span>Plumbing</span>
+                                    </label>
+                                    <label class="flex items-center bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-blue-50">
+                                        <input type="checkbox" name="services[]" value="electrical" class="mr-3 h-5 w-5 text-blue-600">
+                                        <span>Electrical</span>
+                                    </label>
+                                    <label class="flex items-center bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-blue-50">
+                                        <input type="checkbox" name="services[]" value="carpentry" class="mr-3 h-5 w-5 text-blue-600">
+                                        <span>Carpentry</span>
+                                    </label>
+                                    <label class="flex items-center bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-blue-50">
+                                        <input type="checkbox" name="services[]" value="gardening" class="mr-3 h-5 w-5 text-blue-600">
+                                        <span>Gardening</span>
+                                    </label>
+                                    <label class="flex items-center bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-blue-50">
+                                        <input type="checkbox" name="services[]" value="cleaning" class="mr-3 h-5 w-5 text-blue-600">
+                                        <span>Cleaning</span>
+                                    </label>
+                                    <label class="flex items-center bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-blue-50">
+                                        <input type="checkbox" name="services[]" value="other" class="mr-3 h-5 w-5 text-blue-600">
+                                        <span>Other</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="bio" class="block text-gray-700 font-semibold mb-2">About You & Your Services</label>
+                                <textarea id="bio" name="bio" rows="4" 
+                                          class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" 
+                                          placeholder="E.g., Experienced plumber specializing in residential and commercial plumbing repairs. Available 24/7 in Thika and surrounding areas." 
+                                          required></textarea>
+                                <p id="bio_error" class="error-message"></p>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-gray-700 font-semibold mb-2">Profile Photo (Optional)</label>
+                                <div class="flex items-center">
+                                    <div class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl w-20 h-20 flex items-center justify-center mr-4">
+                                        <i class="fas fa-camera text-gray-400 text-xl"></i>
+                                    </div>
+                                    <button type="button" class="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg font-medium hover:bg-blue-100">
+                                        <i class="fas fa-upload mr-2"></i> Choose File
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-8">
+                            <button type="button" onclick="prevStep(1)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="button" onclick="nextStep(3)" class="btn-primary">
+                                Next Step <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Review & Submit -->
+                    <div id="step-3" class="step">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Review Your Information</h2>
+                        
+                        <div class="space-y-6 mb-8">
+                            <div class="review-card">
+                                <h3 class="font-bold text-gray-800 mb-4 text-lg">Personal Information</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-gray-600 text-sm">Name</p>
+                                        <p id="review-name" class="font-medium text-gray-800">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-600 text-sm">Email</p>
+                                        <p id="review-email" class="font-medium text-gray-800">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-600 text-sm">Phone</p>
+                                        <p id="review-phone" class="font-medium text-gray-800">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-600 text-sm">Service Area</p>
+                                        <p id="review-location" class="font-medium text-gray-800">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="review-card">
+                                <h3 class="font-bold text-gray-800 mb-4 text-lg">Professional Information</h3>
+                                <div>
+                                    <p class="text-gray-600 text-sm">Business Name</p>
+                                    <p id="review-business" class="font-medium text-gray-800">Not provided</p>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="text-gray-600 text-sm">Services Offered</p>
+                                    <p id="review-services" class="font-medium text-gray-800">None selected</p>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="text-gray-600 text-sm">About You</p>
+                                    <p id="review-bio" class="font-medium text-gray-800">-</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-8">
+                            <button type="button" onclick="prevStep(2)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-sm font-medium">
+                                <i class="fas fa-arrow-left mr-2"></i> Back
+                            </button>
+                            <button type="button" onclick="submitForm()" class="btn-secondary px-6 py-3 ">
+                                <i class="fas fa-check-circle mr-2"></i> Submit Registration
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="success-check">
+                    <i class="fas fa-check text-white text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold">Registration Successful!</h2>
+            </div>
+            <div class="modal-body">
+                <p class="text-gray-600 mb-6 text-center">
+                    Welcome to the Kiambu Services community! Your profile is being reviewed and will be activated within 24 hours.
+                </p>
+                
+                <div class="bg-blue-50 rounded-xl p-6 mb-6 border border-blue-100">
+                    <h3 class="font-bold text-blue-800 mb-3 text-lg">What's Next?</h3>
+                    <ul class="text-left space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <span>Check your email for verification instructions</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <span>Complete your profile to get more customers</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <span>Start receiving service requests in your area</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="flex flex-col space-y-3">
+                    <button class="btn-primary" onclick="closeModal()">
+                        <i class="fas fa-home mr-2"></i> Go to Dashboard
+                    </button>
+                    <button class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium" onclick="closeModal()">
+                        Continue Browsing
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form step navigation
+        function goToStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show current step
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            // Update progress bar
+            const progress = (step - 1) * 33.33;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            
+            // Update step counter
+            document.getElementById('current-step').textContent = step;
+            
+            // Update review information on step 3
+            if(step === 3) {
+                document.getElementById('review-name').textContent = 
+                    `${document.getElementById('first_name').value} ${document.getElementById('last_name').value}`;
+                
+                document.getElementById('review-email').textContent = 
+                    document.getElementById('email').value;
+                
+                document.getElementById('review-phone').textContent = 
+                    document.getElementById('phone_number').value;
+                
+                document.getElementById('review-location').textContent = 
+                    document.getElementById('location_data').value;
+                
+                document.getElementById('review-bio').textContent = 
+                    document.getElementById('bio').value;
+                
+                const businessName = document.getElementById('business_name').value;
+                if(businessName) {
+                    document.getElementById('review-business').textContent = businessName;
+                }
+                
+                // Get selected services
+                const selectedServices = Array.from(document.querySelectorAll('input[name="services[]"]:checked'))
+                    .map(checkbox => checkbox.nextElementSibling.textContent)
+                    .join(', ');
+                
+                if(selectedServices) {
+                    document.getElementById('review-services').textContent = selectedServices;
+                }
+            }
+        }
+        
+        function nextStep(step) {
+            // Validate current step before proceeding
+            if(step === 2) {
+                if(!validateStep1()) return;
+            } else if(step === 3) {
+                if(!validateStep2()) return;
+            }
+            
+            goToStep(step);
+        }
+        
+        function prevStep(step) {
+            goToStep(step);
+        }
+        
+        // Step 1 validation
+        function validateStep1() {
+            let isValid = true;
+            const firstName = document.getElementById('first_name');
+            const lastName = document.getElementById('last_name');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone_number');
+            const location = document.getElementById('location_data');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirm_password');
+            
+            // Reset errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            
+            // Validate first name
+            if(!firstName.value.trim()) {
+                document.getElementById('first_name_error').textContent = 'First name is required';
+                isValid = false;
+            }
+            
+            // Validate last name
+            if(!lastName.value.trim()) {
+                document.getElementById('last_name_error').textContent = 'Last name is required';
+                isValid = false;
+            }
+            
+            // Validate email
+            if(!email.value.trim()) {
+                document.getElementById('email_error').textContent = 'Email is required';
+                isValid = false;
+            } else if(!/^\S+@\S+\.\S+$/.test(email.value)) {
+                document.getElementById('email_error').textContent = 'Please enter a valid email address';
+                isValid = false;
+            }
+            
+            // Validate phone
+            if(!phone.value.trim()) {
+                document.getElementById('phone_number_error').textContent = 'Phone number is required';
+                isValid = false;
+            } else if(!/^\+254[0-9]{9}$/.test(phone.value)) {
+                document.getElementById('phone_number_error').textContent = 'Please use format: +2547XXXXXXXX';
+                isValid = false;
+            }
+            
+            // Validate location
+            if(!location.value.trim()) {
+                document.getElementById('location_data_error').textContent = 'Service area is required';
+                isValid = false;
+            }
+            
+            // Validate password
+            if(!password.value) {
+                document.getElementById('password_error').textContent = 'Password is required';
+                isValid = false;
+            } else if(password.value.length < 8) {
+                document.getElementById('password_error').textContent = 'Password must be at least 8 characters';
+                isValid = false;
+            }
+            
+            // Validate password confirmation
+            if(!confirmPassword.value) {
+                document.getElementById('confirm_password_error').textContent = 'Please confirm your password';
+                isValid = false;
+            } else if(password.value !== confirmPassword.value) {
+                document.getElementById('confirm_password_error').textContent = 'Passwords do not match';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        // Step 2 validation
+        function validateStep2() {
+            let isValid = true;
+            const bio = document.getElementById('bio');
+            
+            // Reset errors
+            document.getElementById('bio_error').textContent = '';
+            
+            // Validate bio
+            if(!bio.value.trim()) {
+                document.getElementById('bio_error').textContent = 'Please describe your services';
+                isValid = false;
+            } else if(bio.value.trim().length < 20) {
+                document.getElementById('bio_error').textContent = 'Please provide more details (at least 20 characters)';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        // Password confirmation check
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            const errorElement = document.getElementById('confirm_password_error');
+            
+            if(password && confirmPassword && password !== confirmPassword) {
+                errorElement.textContent = 'Passwords do not match';
+            } else {
+                errorElement.textContent = '';
+            }
+        });
+        
+        // Form submission
+        function submitForm() {
+            // Simulate form submission
+            // In a real app, this would be an AJAX call to the server
+            
+            // Show success modal
+            document.getElementById('success-modal').classList.add('active');
+            
+            // Reset form after successful submission
+            setTimeout(() => {
+                document.getElementById('providerRegistrationForm').reset();
+                goToStep(1);
+            }, 500);
+        }
+        
+        // Modal functions
+        function closeModal() {
+            document.getElementById('success-modal').classList.remove('active');
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('success-modal').addEventListener('click', function(e) {
+            if(e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
