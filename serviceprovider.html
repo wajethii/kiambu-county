@@ -7,32 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     <link href="css/style.css" rel="stylesheet"/>
     <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-            --secondary-gradient: linear-gradient(45deg, #A855F7 0%, #EC4899 100%);
-            --accent-gradient: linear-gradient(135deg, #10B981 0%, #3B82F6 100%);
-            --dark-gradient: linear-gradient(90deg, #1A202C 0%, #2D3748 100%);
-        }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f0f7ff, #f9f5ff);
-            min-height: 100vh;
-            color: #2d3748;
-            overflow-x: hidden;
-        }
-        
-        h1, h2, h3, h4, h5 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-        }
         
         .gradient-header {
             background: var(--primary-gradient);
@@ -317,7 +294,7 @@
                 <a href="index.html" class="logo">Kiambu<span>Services</span></a>
                 <nav class="hidden md:flex space-x-8">
                     <a href="index.html" class="nav-link">Home</a>
-                    <a href="allservices.html" class="nav-link">Services</a>
+                    <a href="all_services.html" class="nav-link">Services</a>
                     <a href="#" class="nav-link">How It Works</a>
                     <a href="#" class="nav-link">Providers</a>
                 </nav>
@@ -652,7 +629,52 @@
             </div>
         </div>
     </main>
-
+  <footer class="gradient-footer text-gray-300 py-12 px-4">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Kiambu Services</h3>
+                    <p class="text-gray-400">Your local tech hub for blue-collar services in Kiambu County. Connecting
+                        talent with demand, efficiently.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#how-it-works" class="hover:text-white transition duration-300">How it Works</a>
+                        </li>
+                        <li><a href="#services" class="hover:text-white transition duration-300">Services</a></li>
+                        <li><a href="#testimonials" class="hover:text-white transition duration-300">Testimonials</a>
+                        </li>
+                        <li><a href="/login.html" class="hover:text-white transition duration-300">Login</a></li>
+                        <li><a href="/register.html" class="hover:text-white transition duration-300">Register
+                                as Customer</a></li>
+                        <li><a href="/serviceprovider.html" class="hover:text-white transition duration-300">Register
+                                as Provider</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Connect With Us</h3>
+                    <p class="text-gray-400">Kiambu County, Kenya</p>
+                    <p class="text-gray-400">Email: info@kiambuservices.com</p>
+                    <p class="text-gray-400">Phone: +254 7XX XXX XXX</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                                class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                                class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                                class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i
+                                class="fab fa-linkedin-in text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 mt-8 text-center">
+                <p>&copy; <span id="current-year"></span> Kiambu Services. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
     <!-- Success Modal -->
     <div id="success-modal" class="modal">
         <div class="modal-content">
@@ -698,201 +720,204 @@
     </div>
 
     <script>
-        // Form step navigation
-        function goToStep(step) {
-            // Hide all steps
-            document.querySelectorAll('.step').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            // Show current step
-            document.getElementById(`step-${step}`).classList.add('active');
-            
-            // Update progress bar
-            const progress = (step - 1) * 33.33;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-            
-            // Update step counter
-            document.getElementById('current-step').textContent = step;
-            
-            // Update review information on step 3
-            if(step === 3) {
-                document.getElementById('review-name').textContent = 
-                    `${document.getElementById('first_name').value} ${document.getElementById('last_name').value}`;
-                
-                document.getElementById('review-email').textContent = 
-                    document.getElementById('email').value;
-                
-                document.getElementById('review-phone').textContent = 
-                    document.getElementById('phone_number').value;
-                
-                document.getElementById('review-location').textContent = 
-                    document.getElementById('location_data').value;
-                
-                document.getElementById('review-bio').textContent = 
-                    document.getElementById('bio').value;
-                
-                const businessName = document.getElementById('business_name').value;
-                if(businessName) {
-                    document.getElementById('review-business').textContent = businessName;
-                }
-                
-                // Get selected services
-                const selectedServices = Array.from(document.querySelectorAll('input[name="services[]"]:checked'))
-                    .map(checkbox => checkbox.nextElementSibling.textContent)
-                    .join(', ');
-                
-                if(selectedServices) {
-                    document.getElementById('review-services').textContent = selectedServices;
-                }
-            }
-        }
-        
-        function nextStep(step) {
-            // Validate current step before proceeding
-            if(step === 2) {
-                if(!validateStep1()) return;
-            } else if(step === 3) {
-                if(!validateStep2()) return;
-            }
-            
-            goToStep(step);
-        }
-        
-        function prevStep(step) {
-            goToStep(step);
-        }
-        
-        // Step 1 validation
-        function validateStep1() {
-            let isValid = true;
-            const firstName = document.getElementById('first_name');
-            const lastName = document.getElementById('last_name');
-            const email = document.getElementById('email');
-            const phone = document.getElementById('phone_number');
-            const location = document.getElementById('location_data');
-            const password = document.getElementById('password');
-            const confirmPassword = document.getElementById('confirm_password');
-            
-            // Reset errors
-            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-            
-            // Validate first name
-            if(!firstName.value.trim()) {
-                document.getElementById('first_name_error').textContent = 'First name is required';
-                isValid = false;
-            }
-            
-            // Validate last name
-            if(!lastName.value.trim()) {
-                document.getElementById('last_name_error').textContent = 'Last name is required';
-                isValid = false;
-            }
-            
-            // Validate email
-            if(!email.value.trim()) {
-                document.getElementById('email_error').textContent = 'Email is required';
-                isValid = false;
-            } else if(!/^\S+@\S+\.\S+$/.test(email.value)) {
-                document.getElementById('email_error').textContent = 'Please enter a valid email address';
-                isValid = false;
-            }
-            
-            // Validate phone
-            if(!phone.value.trim()) {
-                document.getElementById('phone_number_error').textContent = 'Phone number is required';
-                isValid = false;
-            } else if(!/^\+254[0-9]{9}$/.test(phone.value)) {
-                document.getElementById('phone_number_error').textContent = 'Please use format: +2547XXXXXXXX';
-                isValid = false;
-            }
-            
-            // Validate location
-            if(!location.value.trim()) {
-                document.getElementById('location_data_error').textContent = 'Service area is required';
-                isValid = false;
-            }
-            
-            // Validate password
-            if(!password.value) {
-                document.getElementById('password_error').textContent = 'Password is required';
-                isValid = false;
-            } else if(password.value.length < 8) {
-                document.getElementById('password_error').textContent = 'Password must be at least 8 characters';
-                isValid = false;
-            }
-            
-            // Validate password confirmation
-            if(!confirmPassword.value) {
-                document.getElementById('confirm_password_error').textContent = 'Please confirm your password';
-                isValid = false;
-            } else if(password.value !== confirmPassword.value) {
-                document.getElementById('confirm_password_error').textContent = 'Passwords do not match';
-                isValid = false;
-            }
-            
-            return isValid;
-        }
-        
-        // Step 2 validation
-        function validateStep2() {
-            let isValid = true;
-            const bio = document.getElementById('bio');
-            
-            // Reset errors
-            document.getElementById('bio_error').textContent = '';
-            
-            // Validate bio
-            if(!bio.value.trim()) {
-                document.getElementById('bio_error').textContent = 'Please describe your services';
-                isValid = false;
-            } else if(bio.value.trim().length < 20) {
-                document.getElementById('bio_error').textContent = 'Please provide more details (at least 20 characters)';
-                isValid = false;
-            }
-            
-            return isValid;
-        }
-        
-        // Password confirmation check
-        document.getElementById('confirm_password').addEventListener('input', function() {
-            const password = document.getElementById('password').value;
-            const confirmPassword = this.value;
-            const errorElement = document.getElementById('confirm_password_error');
-            
-            if(password && confirmPassword && password !== confirmPassword) {
-                errorElement.textContent = 'Passwords do not match';
-            } else {
-                errorElement.textContent = '';
-            }
+    // Form step navigation
+    function goToStep(step) {
+        // Hide all steps
+        document.querySelectorAll('.step').forEach(el => {
+            el.classList.remove('active');
         });
         
-        // Form submission
-        function submitForm() {
-            // Simulate form submission
-            // In a real app, this would be an AJAX call to the server
-            
-            // Show success modal
-            document.getElementById('success-modal').classList.add('active');
-            
-            // Reset form after successful submission
-            setTimeout(() => {
-                document.getElementById('providerRegistrationForm').reset();
-                goToStep(1);
-            }, 500);
-        }
+        // Show current step
+        document.getElementById(`step-${step}`).classList.add('active');
         
-        // Modal functions
-        function closeModal() {
-            document.getElementById('success-modal').classList.remove('active');
-        }
+        // Update progress bar
+        const progress = (step - 1) * 33.33;
+        document.getElementById('progress-bar').style.width = `${progress}%`;
         
-        // Close modal when clicking outside
-        document.getElementById('success-modal').addEventListener('click', function(e) {
-            if(e.target === this) {
-                closeModal();
+        // Update step counter
+        document.getElementById('current-step').textContent = step;
+        
+        // Update review information on step 3
+        if(step === 3) {
+            document.getElementById('review-name').textContent = 
+                `${document.getElementById('first_name').value} ${document.getElementById('last_name').value}`;
+            
+            document.getElementById('review-email').textContent = 
+                document.getElementById('email').value;
+            
+            document.getElementById('review-phone').textContent = 
+                document.getElementById('phone_number').value;
+            
+            document.getElementById('review-location').textContent = 
+                document.getElementById('location_data').value;
+            
+            document.getElementById('review-bio').textContent = 
+                document.getElementById('bio').value;
+            
+            const businessName = document.getElementById('business_name').value;
+            if(businessName) {
+                document.getElementById('review-business').textContent = businessName;
             }
-        });
-    </script>
+            
+            // Get selected services
+            const selectedServices = Array.from(document.querySelectorAll('input[name="services[]"]:checked'))
+                .map(checkbox => checkbox.nextElementSibling.textContent)
+                .join(', ');
+            
+            if(selectedServices) {
+                document.getElementById('review-services').textContent = selectedServices;
+            }
+        }
+    }
+    
+    function nextStep(step) {
+        // Validate current step before proceeding
+        if(step === 2) {
+            if(!validateStep1()) return;
+        } else if(step === 3) {
+            if(!validateStep2()) return;
+        }
+        
+        goToStep(step);
+    }
+    
+    function prevStep(step) {
+        goToStep(step);
+    }
+    
+    // Step 1 validation
+    function validateStep1() {
+        let isValid = true;
+        const firstName = document.getElementById('first_name');
+        const lastName = document.getElementById('last_name');
+        const email = document.getElementById('email');
+        const phone = document.getElementById('phone_number');
+        const location = document.getElementById('location_data');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm_password');
+        
+        // Reset errors
+        document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+        
+        // Validate first name
+        if(!firstName.value.trim()) {
+            document.getElementById('first_name_error').textContent = 'First name is required';
+            isValid = false;
+        }
+        
+        // Validate last name
+        if(!lastName.value.trim()) {
+            document.getElementById('last_name_error').textContent = 'Last name is required';
+            isValid = false;
+        }
+        
+        // Validate email
+        if(!email.value.trim()) {
+            document.getElementById('email_error').textContent = 'Email is required';
+            isValid = false;
+        } else if(!/^\S+@\S+\.\S+$/.test(email.value)) {
+            document.getElementById('email_error').textContent = 'Please enter a valid email address';
+            isValid = false;
+        }
+        
+        // Validate phone
+        if(!phone.value.trim()) {
+            document.getElementById('phone_number_error').textContent = 'Phone number is required';
+            isValid = false;
+        } else if(!/^\+254[0-9]{9}$/.test(phone.value)) {
+            document.getElementById('phone_number_error').textContent = 'Please use format: +2547XXXXXXXX';
+            isValid = false;
+        }
+        
+        // Validate location
+        if(!location.value.trim()) {
+            document.getElementById('location_data_error').textContent = 'Service area is required';
+            isValid = false;
+        }
+        
+        // Validate password
+        if(!password.value) {
+            document.getElementById('password_error').textContent = 'Password is required';
+            isValid = false;
+        } else if(password.value.length < 8) {
+            document.getElementById('password_error').textContent = 'Password must be at least 8 characters';
+            isValid = false;
+        }
+        
+        // Validate password confirmation
+        if(!confirmPassword.value) {
+            document.getElementById('confirm_password_error').textContent = 'Please confirm your password';
+            isValid = false;
+        } else if(password.value !== confirmPassword.value) {
+            document.getElementById('confirm_password_error').textContent = 'Passwords do not match';
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+    
+    // Step 2 validation
+    function validateStep2() {
+        let isValid = true;
+        const bio = document.getElementById('bio');
+        
+        // Reset errors
+        document.getElementById('bio_error').textContent = '';
+        
+        // Validate bio
+        if(!bio.value.trim()) {
+            document.getElementById('bio_error').textContent = 'Please describe your services';
+            isValid = false;
+        } else if(bio.value.trim().length < 20) {
+            document.getElementById('bio_error').textContent = 'Please provide more details (at least 20 characters)';
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+    
+    // Password confirmation check
+    document.getElementById('confirm_password').addEventListener('input', function() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = this.value;
+        const errorElement = document.getElementById('confirm_password_error');
+        
+        if(password && confirmPassword && password !== confirmPassword) {
+            errorElement.textContent = 'Passwords do not match';
+        } else {
+            errorElement.textContent = '';
+        }
+    });
+    
+    // Form submission
+    function submitForm() {
+        // Simulate form submission
+        // In a real app, this would be an AJAX call to the server
+        
+        // Show success modal
+        document.getElementById('success-modal').classList.add('active');
+        
+        // Reset form after successful submission
+        setTimeout(() => {
+            document.getElementById('providerRegistrationForm').reset();
+            goToStep(1);
+        }, 500);
+    }
+    
+    // Modal functions
+    function closeModal() {
+        document.getElementById('success-modal').classList.remove('active');
+    }
+    
+    // Close modal when clicking outside
+    document.getElementById('success-modal').addEventListener('click', function(e) {
+        if(e.target === this) {
+            closeModal();
+        }
+    });
+
+    // Set current year in footer - MOVED THIS LINE HERE
+    document.getElementById('current-year').textContent = new Date().getFullYear(); 
+</script>
 </body>
 </html>
