@@ -214,7 +214,7 @@
     <!-- Category Filters -->
     <section class="py-6 bg-gray-50">
         <div class="container mx-auto px-4">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Filter by Category:</h3>
+            <h3 class="text-lg font-md text-gray-700 mb-4">Filter by Category:</h3>
             <div class="category-filter">
                 <div class="category-btn active">All Services</div>
                 <div class="category-btn">Home Repair</div>
@@ -596,8 +596,9 @@
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
-                <p>&copy; 2023 Kiambu Services. All rights reserved.</p>
+            <div class="border-t border-gray-700 pt-8 mt-8 text-center">
+                <p>&copy; <span id="current-year"></span> Kiambu Services. All rights reserved.
+                </p>
             </div>
         </div>
     </footer>
@@ -654,6 +655,8 @@
                     alert(`Searching for: "${this.value}"`);
                 }
             });
+              // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
         });
     </script>
 </body>
