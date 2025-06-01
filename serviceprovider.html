@@ -915,6 +915,14 @@
             closeModal();
         }
     });
+      // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('mobile-menu-open');
+        });
+        
 
     // Set current year in footer - MOVED THIS LINE HERE
     document.getElementById('current-year').textContent = new Date().getFullYear(); 

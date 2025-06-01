@@ -157,16 +157,31 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white shadow-sm py-4">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <a href="index.html" class="logo">Kiambu<span>Services</span></a>
-            <div class="flex items-center space-x-4">
-                <a href="index.html" class="text-gray-600 hover:text-blue-600 hidden md:inline-block">
-                    <i class="fas fa-home mr-1"></i> Home
-                </a>
-                <a href="serviceprovider.html" class="bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition duration-300">
-                    Join as Provider
-                </a>
+    <nav class="sticky-nav p-4 shadow-sm">
+        <div class="container mx-auto flex justify-between items-center">
+             <a href="index.html" class="logo">Kiambu<span>Services</span></a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="serviceprovider.html" class="text-gray-600 hover:text-blue-600 font-semibold transition duration-300">Join
+                    Us</a>
+                <a href="login.html"
+                    class="px-5 py-2 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition duration-300 card-hover-effect">Login</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 focus:outline-none focus:text-blue-600">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="mobile-menu-transition md:hidden mt-2">
+            <div class="py-4 space-y-4">
+                    <a href="serviceprovider.html"
+                    class="block px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition duration-300">Join Us</a>
+                <a href="login.html"
+                    class="block px-4 py-3 bg-blue-600 text-white rounded-lg font-bold text-center hover:bg-blue-700 transition duration-300">Login</a>
             </div>
         </div>
     </nav>
@@ -220,7 +235,7 @@
     <section class="py-12">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold text-gray-800">All Services (24)</h2>
+                <h2 class="text-xl font-bold text-gray-800">All Services (24)</h2>
                 <div class="flex items-center">
                     <span class="text-gray-600 mr-3">Sort by:</span>
                     <select class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -588,6 +603,33 @@
     </footer>
 
     <script>
+         // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('mobile-menu-open');
+        });
+        
+        // Smooth scrolling with offset for fixed header
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                mobileMenu.classList.remove('mobile-menu-open');
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                const headerHeight = document.querySelector('nav').offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
         // Simple fade-in animation for service cards
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.fade-in');
